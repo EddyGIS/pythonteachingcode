@@ -2,7 +2,14 @@
 This code goes out to the Web and gets a web page and parses it into local data.
 To use this code, you will first need to install the three packages being imported below using pip.
 '''
-from bs4 import BeautifulSoup
+from importlib import import_module
+
+try:
+    BeautifulSoup = import_module('bs4').BeautifulSoup
+except ModuleNotFoundError as error:
+    raise SystemExit(
+        "BeautifulSoup is not installed. Run: python -m pip install beautifulsoup4 lxml"
+    ) from error
 import requests
 import csv
 source = requests.get('http://coreyms.com').text
